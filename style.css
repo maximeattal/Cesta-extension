@@ -160,7 +160,8 @@ li {
 
 .bottom-bar-text {
     font-family: 'Montserrat-Regular';
-    font-size: 13px;
+    font-size: 12px;
+    padding-bottom: 4px;
 }
 
 .bottom-bar-sum {

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import './Panier.css';
-
+import Marchand from './Marchand';
 const Panier = () => {
   const [url, setUrl] = useState('');
 
@@ -16,9 +16,10 @@ const Panier = () => {
   }, []);
   
   return (
-    <div>
+    <main className='liste-panier'>
+      <Marchand />
       {url}
-    </div>
+    </main>
   )
 }
 export default Panier

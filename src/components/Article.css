@@ -1,0 +1,14 @@
+.article {
+    margin: 17px;
+    background-color: aqua;
+}
+li div {
+    display: inline;
+}
+.description {
+    background-color: aquamarine;
+
+}
+.price {
+    background-color: blue;
+}

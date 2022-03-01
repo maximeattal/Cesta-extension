@@ -7,68 +7,52 @@
   justify-content: space-between;
   height: 62px;
   width: 100%;
+  border-bottom: 2px solid #f2f2f2;
 }
 
 li {
-    list-style: none;
+  list-style: none;
 }
 
 .top-bar {
-    width: 90%;
-    margin: auto;
-    min-height: 60px; 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  width: 90%;
+  margin: auto;
+  min-height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .top-bar-list {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-}
-
-/* Account icon */
-.top-bar-username-icon {
-    position: relative;
-    width: 26px;
-    height: 26px;
-}
-
-.top-bar-username-icon img{
-    width: 100%;
-    height: auto;
-    position: absolute;
-}
-
-.top-bar-username-icon .account-hover {
-    display: none;
-}
-
-.top-bar-username-icon:hover .account{
-    display: none;
-}
-
-.top-bar-username-icon:hover .account-hover{
-    display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
 }
 
 .top-bar-logo {
-    font-family: "Gotham-Black";
-    font-size: 26px;
-    color: #FF7300;
+  font-family: "Gotham-Black";
+  font-size: 26px;
+  color: #ff7300;
 }
 
 .top-bar-logo:hover {
-    color: #FF5500;
+  color: #ff5500;
 }
 
+/* Account icon */
+
 .top-bar-username {
-    font-family: "Montserrat-Medium";
-    font-size: 16px;     
+  font-family: "Montserrat-Medium";
+  font-size: 16px;
 }
 
 .top-bar-username:hover {
-    text-decoration: underline; 
+  text-decoration: underline;
+}
+
+.top-bar-username-icon {
+  position: relative;
+  width: 31px;
+  height: 31px;
 }

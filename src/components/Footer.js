@@ -1,5 +1,7 @@
 import React from 'react'
 import './Footer.css';
+import Button from '@mui/material/Button';
+
 
 const Footer = () => {
   return (
@@ -9,7 +11,22 @@ const Footer = () => {
           <li class="bottom-bar-text">Total Amount</li>
           <li class="bottom-bar-sum">$364</li>
         </ul>
-        <a href="#" class="checkout-button">Check out</a>
+        <Button variant="contained" disableElevation
+          sx={{
+            backgroundColor: '#ff7300',
+            borderRadius: '5px',
+            fontFamily: "Montserrat-Medium",
+            fontSize: '16px',
+            width: '187px',
+            height: '41px',
+            textTransform: 'none',
+            '&:hover': {
+              backgroundColor: '#ff5500',
+            }
+          }}
+        >
+          Check out
+        </Button>
       </div>
     </footer>
   )

@@ -1,0 +1,29 @@
+.sous-panier-marchand {
+  display: flex;
+  flex-direction: column;
+}
+
+.bar-marchand {
+  display: flex;
+  background-color: #f2f2f2;
+  height: 38px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 17px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  font-family: 'Montserrat-Regular';
+}
+
+span {
+      font-family: 'Montserrat-Medium';
+}
+
+.text-sub-tot {
+    font-family: 'Montserrat-Regular';
+}
+
+.liste-articles {
+    
+
+}

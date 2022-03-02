@@ -16,10 +16,13 @@ const Panier = () => {
   }, []);
   
   return (
-    <main className='liste-panier'>
+    <div className='liste-panier'>
+
+      <Marchand />
+      <Marchand />
       <Marchand />
       {url}
-    </main>
+    </div>
   )
 }
 export default Panier

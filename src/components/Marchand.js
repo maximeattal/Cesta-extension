@@ -13,16 +13,14 @@ const Marchand = () => {
         <span className='value-sub-tot'>$125</span>
       </header>
       <ul className='liste-articles'>
-        <Article />
-        {/* {
+        
+        {
           list.map((element, i) => {
-            return (
-              <li>
-                {element}
-              </li>
+            return (   
+                <Article />
             )
           })
-        } */}
+        }
       </ul>
     </div>
   )

@@ -17,10 +17,14 @@
 
 span {
       font-family: 'Montserrat-Medium';
+      font-size: 15px;
+      font-weight: bold;
 }
 
 .text-sub-tot {
     font-family: 'Montserrat-Regular';
+    font-size: 11px;
+    
 }
 
 .liste-articles {

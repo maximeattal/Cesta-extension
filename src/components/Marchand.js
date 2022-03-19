@@ -17,7 +17,7 @@ const Marchand = ({ marchArticles, click }) => {
   return (
     <div className='sous-panier-marchand'>
       <header className='bar-marchand'>
-        <span className='marchand-name'>La Fiancé</span>
+        <span className='marchand-name'>La Fiancée</span>
         <span className='text-sub-tot'>Sub-Total</span>
         <span className='value-sub-tot'>{subTotal.toFixed(2)}€</span>
       </header>

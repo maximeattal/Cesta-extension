@@ -25,7 +25,7 @@ const App = () => {
     });
     chrome.storage.local.get(["fromContent"], (res) => {
       setAllList(res.fromContent)
-      
+
     })
     chrome.storage.local.get(["panier"], (res) => {
       if (res.panier !== undefined) {
@@ -55,25 +55,30 @@ const App = () => {
   }, [allList])
 
   const handleAddArticle = () => {
-    let temp = listMarchands
-    temp[0].push(allList[1].find(element => element.site === url))
-    setListMarchands(temp)
-    setClick(click + 1)
-    chrome.storage.local.set({
-      "panier": temp,
-    })
+    if (!listMarchands[0].some(element => element.site === url)) {
+      let temp = listMarchands
+      temp[0].push(allList[1].find(element => element.site === url))
+      setListMarchands(temp)
+      setClick(click + 1)
+      chrome.storage.local.set({
+        "panier": temp,
+      })
+    }
+    else {
+      alert("Article déjà ajouté")
+    }
   }
 
   return (
     <div className="App">
       <Header />
-      
+
       {
-        toggleLoadingPage 
-        ?
-        <PanierLoading />
-        :
-        <Panier listMarchands={listMarchands} handleAddArticle={handleAddArticle} click={click} />
+        toggleLoadingPage
+          ?
+          <PanierLoading />
+          :
+          <Panier listMarchands={listMarchands} handleAddArticle={handleAddArticle} click={click} />
       }
       <Footer toggleExist={exist} handleAddArticle={handleAddArticle} />
     </div>

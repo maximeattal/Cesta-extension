@@ -12,9 +12,7 @@ const Marchand = ({ marchArticles, click }) => {
       total += el.prix
     })
     setSubTotal(total)
-    console.log("article");
   }, [click])
-  console.log("click", click);
 
   return (
     <div className='sous-panier-marchand'>
@@ -26,7 +24,6 @@ const Marchand = ({ marchArticles, click }) => {
       <ul className='liste-articles'>
         {
           marchArticles.map((element, i) => {
-            console.log("element")
             return (
               <Article key={i} article={element} />
             )

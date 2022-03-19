@@ -57,11 +57,11 @@ const getimg = async () => {
   articles[1].push(article)
   console.log("joujo", articles)
   chrome.storage.local.set({
-    articles,
+    "fromContent": articles,
   })
   // console.log(article);
 }
 window.addEventListener('load', function () {
   getimg();
-  
+  // chrome.storage.local.clear()
 })

@@ -4,6 +4,7 @@ import './App.css';
 import Panier from './components/Panier';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import PanierLoading from './components/PanierLoading';
 import { useState, useEffect } from 'react';
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
   const [listMarchands, setListMarchands] = useState([[]])
   const [allList, setAllList] = useState([])
   const [click, setClick] = useState(0)
+  const [toggleLoadingPage, setToggleLoadingPage] = useState(true)
 
 
   useEffect(() => {
@@ -21,18 +23,23 @@ const App = () => {
       const url = tabs[0].url;
       setUrl(url);
     });
-    chrome.storage.local.get(["articles"], (res) => {
-      setAllList(res.articles)
+    chrome.storage.local.get(["fromContent"], (res) => {
+      setAllList(res.fromContent)
+      
     })
-    window.onbeforeunload = event => {
-      const e = event || window.event
-
-      e.preventDefault()
-      alert("helloooo")
-    }
+    chrome.storage.local.get(["panier"], (res) => {
+      if (res.panier !== undefined) {
+        setListMarchands(res.panier)
+      }
+    })
+    console.log("test");
+    handleLoading()
 
   }, []);
 
+  const handleLoading = () => {
+    setToggleLoadingPage(false)
+  }
   useEffect(() => {
     if (allList !== undefined) {
       let toggleExist = false
@@ -47,20 +54,27 @@ const App = () => {
     }
   }, [allList])
 
-
-
   const handleAddArticle = () => {
     let temp = listMarchands
     temp[0].push(allList[1].find(element => element.site === url))
-    console.log(allList[1].find(element => element.site === url))
     setListMarchands(temp)
     setClick(click + 1)
+    chrome.storage.local.set({
+      "panier": temp,
+    })
   }
 
   return (
     <div className="App">
       <Header />
-      <Panier listMarchands={listMarchands} handleAddArticle={handleAddArticle} click={click}/>
+      
+      {
+        toggleLoadingPage 
+        ?
+        <PanierLoading />
+        :
+        <Panier listMarchands={listMarchands} handleAddArticle={handleAddArticle} click={click} />
+      }
       <Footer toggleExist={exist} handleAddArticle={handleAddArticle} />
     </div>
   );

@@ -1,9 +1,11 @@
 import React from 'react'
 import './Footer.css';
 import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
+
+const Footer = ({ toggleExist, handleAddArticle}) => {
 
 
-const Footer = () => {
   return (
     <footer className='Footer'>
       <div class="bottom-bar">
@@ -11,13 +13,17 @@ const Footer = () => {
           <li class="bottom-bar-text">Total Amount</li>
           <li class="bottom-bar-sum">$364</li>
         </ul>
+
+        <Button variant='contained' onClick={handleAddArticle} disabled={!toggleExist}>
+          <AddIcon />
+        </Button>
         <Button variant="contained" disableElevation
           sx={{
             backgroundColor: '#ff7300',
             borderRadius: '5px',
             fontFamily: "Montserrat-Medium",
             fontSize: '16px',
-            width: '187px',
+            width: '150px',
             height: '41px',
             textTransform: 'none',
             '&:hover': {

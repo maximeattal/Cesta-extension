@@ -1,23 +1,34 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './Marchand.css';
 import Article from './Article';
-const list = ["element1", "element2"]
 
-const Marchand = () => {
+const Marchand = ({ marchArticles, click }) => {
+
+  const [subTotal, setSubTotal] = useState(0)
+
+  useEffect(() => {
+    let total = 0
+    marchArticles.forEach(el => {
+      total += el.prix
+    })
+    setSubTotal(total)
+    console.log("article");
+  }, [click])
+  console.log("click", click);
 
   return (
     <div className='sous-panier-marchand'>
       <header className='bar-marchand'>
-        <span className='marchand-name'>asos.com</span>
+        <span className='marchand-name'>La Fiancé</span>
         <span className='text-sub-tot'>Sub-Total</span>
-        <span className='value-sub-tot'>$125</span>
+        <span className='value-sub-tot'>{subTotal.toFixed(2)}€</span>
       </header>
       <ul className='liste-articles'>
-        
         {
-          list.map((element, i) => {
-            return (   
-                <Article />
+          marchArticles.map((element, i) => {
+            console.log("element")
+            return (
+              <Article key={i} article={element} />
             )
           })
         }

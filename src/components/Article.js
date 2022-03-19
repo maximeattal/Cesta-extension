@@ -1,21 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Article.css'
 import asosArticle from '../icons/asosarticle.jpeg'
 import { ButtonGroup, Button } from '@mui/material'
 import { fontFamily, height } from '@mui/system'
 
-const Article = () => {
+const Article = ({ article }) => {
   const [quantity, setQuantity] = useState(1)
   const [size, setSize] = useState('M')
-
   return (
     <li className='article'>
       <div className='article-image'>
-        <img src={asosArticle} alt="image item" />
+        <a href={article.site} target="_blank">
+          <img src={article.img} alt="image item" href={article.site} target="_blank" />
+        </a>
       </div>
       <div className='article-description'>
         <div className='article-nom'>
-          Nike Sportsware Club
+          {article.name}
         </div>
         <div className='article-qt-size'>
           <div className='article-qt'>
@@ -37,7 +38,7 @@ const Article = () => {
             <input type="text"
               readOnly
               value={quantity}
-              
+
             />
             <Button variant="contained" disableElevation
               sx={{
@@ -64,7 +65,7 @@ const Article = () => {
         </div>
       </div>
       <div className='article-price'>
-        35€
+        {article.prix.toFixed(2)}€
       </div>
 
     </li>

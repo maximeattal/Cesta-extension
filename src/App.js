@@ -6,7 +6,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import PanierLoading from './components/PanierLoading';
 import { useState, useEffect } from 'react';
-
+import { Route, Routes } from 'react-router-dom'
+import Main from './components/Main';
 const App = () => {
   const [url, setUrl] = useState('');
   const [exist, setExist] = useState(false)
@@ -37,8 +38,10 @@ const App = () => {
 
   }, []);
 
-  const handleLoading = () => {
-    setToggleLoadingPage(false)
+  const handleLoading = async () => {
+    setTimeout(() => {
+      setToggleLoadingPage(false)
+    }, 300)
   }
   useEffect(() => {
     if (allList !== undefined) {
@@ -72,15 +75,9 @@ const App = () => {
   return (
     <div className="App">
       <Header />
-
-      {
-        toggleLoadingPage
-          ?
-          <PanierLoading />
-          :
-          <Panier listMarchands={listMarchands} handleAddArticle={handleAddArticle} click={click} />
-      }
-      <Footer toggleExist={exist} handleAddArticle={handleAddArticle} />
+      <Main toggleLoadingPage={toggleLoadingPage} listMarchands={listMarchands} 
+      handleAddArticle={handleAddArticle} click={click} exist={exist}/>
+      
     </div>
   );
 }

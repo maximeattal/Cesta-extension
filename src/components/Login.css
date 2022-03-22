@@ -17,6 +17,11 @@
 .login-logo img{
     width: 70px;
     height: 70px;
+    margin-bottom: 10px;
+}
+
+.create-account-link{
+    margin-top: 5px;
 }
 .wave{
     position: absolute;

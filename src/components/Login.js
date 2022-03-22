@@ -4,15 +4,17 @@ import logo from "../icons/icon128.png";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import Divider from "@mui/material/Divider";
+import { Link, useNavigate } from "react-router-dom"
 
 const Login = () => {
+
+  const navigate = useNavigate()
   return (
     <div className="login">
       <div className="login-container">
         <div className="login-logo">
           <img src={logo} alt="logo-cesta" />
         </div>
-        Login
         <form action="">
           <TextField
             id="outlined-basic"
@@ -37,6 +39,7 @@ const Login = () => {
           <Button
             variant="contained"
             disableElevation
+            onClick={() => navigate("/main")}
             sx={{
               backgroundColor: "#ff7300",
               borderRadius: "5px",
@@ -56,16 +59,18 @@ const Login = () => {
         </form>
         <a href="">Forgot your password</a>
         <Divider
-          variant="middle" 
+          variant="middle"
           sx={{
             width: "100%",
             margin: "15px",
-            color: "black"
-
+            color: "black",
           }}
         />
         <span>Don't have Cesta account ?</span>
-        <a href="">Create one now</a>
+        {/* <Link>Create one now</Link> */}
+        <a className="create-account-link" href="">
+          Create one now
+        </a>
       </div>
       <div className="wave"></div>
     </div>

@@ -2,6 +2,7 @@
   margin: 17px;
   max-height: 65px;
   display: flex;
+  position: relative;
 }
 li div {
   display: inline-block;
@@ -9,6 +10,7 @@ li div {
 .article-image {
   height: 65px;
   width: 65px;
+  min-width: 65px;
   display: flex;
   flex-direction: row;
   align-items: center;

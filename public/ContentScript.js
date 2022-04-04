@@ -27,8 +27,8 @@ const getMeta = (attribute, metaName) => {
 
 const loadArticles = () => {
   return new Promise(resolve => {
-    chrome.storage.local.get(["articles"], (res) => {
-      console.log("heloo", res.articles)
+    chrome.storage.local.get(["fromContent"], (res) => {
+      console.log("heloo", res)
       resolve(res.articles)
     })
   })
@@ -41,6 +41,7 @@ const getimg = async () => {
   }
   else if (articles[0] !== formatDate(new Date())) {
     chrome.storage.local.clear()
+    alert(articles[0])
     articles = [formatDate(new Date()), []]
   }
   const site = window.location.href
@@ -63,5 +64,5 @@ const getimg = async () => {
 }
 window.addEventListener('load', function () {
   getimg();
-  // chrome.storage.local.clear()
+  //chrome.storage.local.clear()
 })

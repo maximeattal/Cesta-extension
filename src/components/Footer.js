@@ -2,9 +2,10 @@ import React from 'react'
 import './Footer.css';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
-
+import { useNavigate } from 'react-router-dom'
 const Footer = ({ toggleExist, handleAddArticle}) => {
 
+  const navigate = useNavigate()
 
   return (
     <footer className='Footer'>
@@ -17,7 +18,10 @@ const Footer = ({ toggleExist, handleAddArticle}) => {
         <Button variant='contained' onClick={handleAddArticle} disabled={!toggleExist}>
           <AddIcon />
         </Button>
-        <Button variant="contained" disableElevation
+        <Button 
+          variant="contained" 
+          disableElevation
+          onClick={() => navigate("/")}
           sx={{
             backgroundColor: '#ff7300',
             borderRadius: '5px',

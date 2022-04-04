@@ -55,6 +55,12 @@ const Main = () => {
   }, [allList]);
 
   const handleAddArticle = () => {
+    // let index = -1
+    // listMarchands.forEach((el, i) => {
+    //   if (el.some(element => element.site === url)) {
+    //     index = i
+    //   }
+    // })
     if (!listMarchands[0].some((element) => element.site === url)) {
       let temp = listMarchands;
       temp[0].push(allList[1].find((element) => element.site === url));

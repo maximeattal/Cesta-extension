@@ -13,6 +13,7 @@
   border-radius: 10px;
   flex-shrink: 0;
   font-family: 'Montserrat-Regular';
+  position: relative;
 }
 
 span {
@@ -24,10 +25,6 @@ span {
 .text-sub-tot {
     font-family: 'Montserrat-Regular';
     font-size: 11px;
-    
-}
-
-.liste-articles {
-    
-
+    position: absolute;
+    right: 100px;
 }

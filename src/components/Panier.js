@@ -1,27 +1,31 @@
 /* global chrome */
 
-import React, { useEffect, useState } from 'react'
-import './Panier.css';
-import Marchand from './Marchand';
+import React, { useEffect, useState } from "react";
+import "./Panier.css";
+import Marchand from "./Marchand";
 
-const Panier = ({listMarchands, click}) => {
-  console.log(listMarchands);
-  const [toggleListMarch, setToggleListMarch] = useState(false)
+const Panier = ({ handleRemoveArticle, listMarchands, click }) => {
   return (
-    <div className='liste-panier'>
-      {
-        listMarchands[0].length !== 0
-        &&
-        
-        listMarchands.map((element, i) => {
-          if (element !== []) {
-
-            return <Marchand key={i} marchArticles={element} click={click}/>
+    <div className="liste-panier">
+      {Object.keys(listMarchands).length !== 0 
+      ?
+        Object.keys(listMarchands).map((key) => {
+          if (listMarchands[key] !== []) {
+            return (
+              <Marchand
+                key={key}
+                id={key}
+                marchArticles={listMarchands[key]}
+                handleRemoveArticle={handleRemoveArticle}
+                click={click}
+              />
+            );
           }
-
         })
-      }
+        :
+        <span className="panier-vide">Votre Panier est Vide</span>
+        }
     </div>
-  )
-}
-export default Panier
+  );
+};
+export default Panier;

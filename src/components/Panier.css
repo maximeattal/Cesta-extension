@@ -28,7 +28,10 @@
     max-height: 420px;
     overflow: auto;
 }
-
+.panier-vide{
+    margin: auto;
+    color: grey;
+}
 
 
 

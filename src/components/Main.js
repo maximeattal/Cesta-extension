@@ -10,12 +10,20 @@ import "./Main.css";
 const Main = () => {
   const [url, setUrl] = useState("");
   const [exist, setExist] = useState(false);
-  const [listMarchands, setListMarchands] = useState([[]]);
+  const [listMarchands, setListMarchands] = useState({});
   const [allList, setAllList] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(0)
   const [click, setClick] = useState(0);
   const [toggleLoadingPage, setToggleLoadingPage] = useState(true);
 
-  useEffect(() => {
+  const loadArticles = () => {
+    return new Promise((resolve) => {
+      chrome.storage.local.get(["fromContent"], (res) => {
+        resolve(res.fromContent);
+      });
+    });
+  };
+  useEffect(async () => {
     const queryInfo = { active: true, lastFocusedWindow: true };
 
     chrome.tabs &&
@@ -23,47 +31,66 @@ const Main = () => {
         const url = tabs[0].url;
         setUrl(url);
       });
-    chrome.storage.local.get(["fromContent"], (res) => {
-      setAllList(res.fromContent);
-    });
+
+    const temp = await loadArticles();
+    setAllList(temp);
+
     chrome.storage.local.get(["panier"], (res) => {
       if (res.panier !== undefined) {
         setListMarchands(res.panier);
       }
     });
-    console.log("test");
     handleLoading();
   }, []);
+  const clickAction = () => {
+    setClick(click + 1)
+  }
 
+  useEffect(() => {
+    siteSupported();
+  }, [allList]);
+
+  const siteSupported = () => {
+    if (allList !== undefined && allList.length !== 0) {
+      let toggleExist = false;
+
+      Object.keys(allList[1]).forEach((key) => {
+        toggleExist = allList[1][key].some((el) => el.site === url);
+        if (toggleExist === true) {
+          setExist(true);
+        }
+      });
+    }
+  };
   const handleLoading = async () => {
     setTimeout(() => {
       setToggleLoadingPage(false);
     }, 300);
   };
-  useEffect(() => {
-    if (allList !== undefined) {
-      let toggleExist = false;
-      allList.forEach((element, i) => {
-        if (i !== 0) {
-          toggleExist = element.some((el) => el.site === url);
-          if (toggleExist === true) {
-            setExist(true);
-          }
-        }
-      });
-    }
-  }, [allList]);
 
-  const handleAddArticle = () => {
-    // let index = -1
-    // listMarchands.forEach((el, i) => {
-    //   if (el.some(element => element.site === url)) {
-    //     index = i
-    //   }
-    // })
-    if (!listMarchands[0].some((element) => element.site === url)) {
+  const handleRemoveArticle = (marchandId, articleId) => {
+    let temp = listMarchands;
+    temp[marchandId].splice(articleId, 1)
+    if (temp[marchandId].length === 0) {
+      delete temp[marchandId]
+    }
+    setListMarchands(temp);
+    setClick(click + 1);
+    chrome.storage.local.set({
+      panier: temp,
+    });
+    console.log("tttt", temp);
+  }
+  const addArticle = (website) => {
+    if (listMarchands[website] === undefined) {
+      listMarchands[website] = [];
+    }
+    if (!listMarchands[website].some((element) => element.site === url)) {
       let temp = listMarchands;
-      temp[0].push(allList[1].find((element) => element.site === url));
+      temp[website].push(
+        allList[1][website].find((element) => element.site === url)
+      );
+
       setListMarchands(temp);
       setClick(click + 1);
       chrome.storage.local.set({
@@ -71,6 +98,21 @@ const Main = () => {
       });
     } else {
       alert("Article déjà ajouté");
+    }
+  }
+  const handleAddArticle = () => {
+
+    if (url.includes("lafiancee")) {
+      addArticle("lafiancee")
+    } 
+    else if (url.includes("ikea")) {
+      addArticle("ikea")
+    } 
+    else if (url.includes("lagranderecre")) {
+      addArticle("lagranderecre")
+    } 
+    else if (url.includes("tennispro")) {
+      addArticle("tennispro")
     }
   };
   return (
@@ -81,11 +123,17 @@ const Main = () => {
       ) : (
         <Panier
           listMarchands={listMarchands}
-          handleAddArticle={handleAddArticle}
+          handleRemoveArticle={handleRemoveArticle}
           click={click}
         />
       )}
-      <Footer toggleExist={exist} handleAddArticle={handleAddArticle} />
+      <Footer
+        clickAction={clickAction}
+        listMarchands={listMarchands}
+        toggleExist={exist}
+        handleAddArticle={handleAddArticle}
+        click={click}
+      />
     </div>
   );
 };

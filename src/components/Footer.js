@@ -48,7 +48,6 @@ const Footer = ({
         <Button
           variant="contained"
           disableElevation
-          onClick={() => navigate("/")}
           sx={{
             backgroundColor: "#ff7300",
             borderRadius: "5px",

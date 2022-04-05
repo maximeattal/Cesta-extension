@@ -1,0 +1,12 @@
+.forgot-password-message{
+    margin: 10px 0;
+    font-size: 14px;
+    font-family: "Montserrat-Regular";
+}
+
+.email-send-reset{
+    margin: 10px 0;
+    font-family: "Montserrat-Medium";
+    font-size: 15px;
+    color: green;
+}

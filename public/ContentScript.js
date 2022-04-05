@@ -38,8 +38,8 @@ const getLafiancee = async () => {
   document.getElementById("site_head_wrap").innerHTML =
     '<div style="color: white; font-size: 15px; background-color: #ff7300; width:100%; height: 34px; display:flex; flex-direction: row; align-items: center; justify-content: center;"><img style="max-height: 28px; max-width: 28px" src="https://i.ibb.co/z6H7mKc/logo-icon-blanc.png" alt="logo-icon-blanc"> <b>&nbsp;Compatible: &nbsp;</b> Ajoutez vos articles directement à votre panier Cesta!</div>' +
     document.getElementById("site_head_wrap").innerHTML;
-  let articles = await loadArticles();
 
+  let articles = await loadArticles();
   if (articles === undefined) {
     articles = [formatDate(new Date()), {}];
   } else if (articles[0] !== formatDate(new Date())) {
@@ -51,12 +51,9 @@ const getLafiancee = async () => {
     "swiper-lazy img_large swiper-lazy-loaded"
   )[0];
   const nom = getMeta("property", "og:title");
-  const prix = parseFloat(document.getElementById("prixU").value);
-  console.log(prix);
-  console.log(typeof articles[1].lafiancee);
+  const prix = document.getElementById("prixU");
   if (articles[1].lafiancee === undefined) {
     articles[1].lafiancee = [];
-    console.log("testtttttt");
   }
   if (
     site !== undefined &&
@@ -68,7 +65,7 @@ const getLafiancee = async () => {
       site: site,
       img: imgToReturn.src,
       name: nom,
-      prix: prix,
+      prix: parseFloat(prix.value),
     };
     console.log("bonjour", articles);
 

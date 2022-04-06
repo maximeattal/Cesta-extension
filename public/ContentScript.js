@@ -36,7 +36,7 @@ const loadArticles = () => {
 /*-----------------------------------La Fiancée----------------------------------*/
 const getLafiancee = async () => {
   document.getElementById("site_head_wrap").innerHTML =
-    '<div style="color: white; font-size: 15px; background-color: #ff7300; width:100%; height: 34px; display:flex; flex-direction: row; align-items: center; justify-content: center;"><img style="max-height: 28px; max-width: 28px" src="https://i.ibb.co/z6H7mKc/logo-icon-blanc.png" alt="logo-icon-blanc"> <b>&nbsp;Compatible: &nbsp;</b> Ajoutez vos articles directement à votre panier Cesta!</div>' +
+    '<div style="color: white; font-size: 15px; background-color: #ff7300; width:100%; height: 34px; display:flex; flex-direction: row; align-items: center; justify-content: center;"><img style="max-height: 24px; max-width: 24px" src="https://i.ibb.co/z6H7mKc/logo-icon-blanc.png" alt="logo-icon-blanc"> <b>&nbsp;Compatible: &nbsp;</b> Ajoutez vos articles directement à votre panier Cesta!</div>' +
     document.getElementById("site_head_wrap").innerHTML;
 
   let articles = await loadArticles();
@@ -55,19 +55,32 @@ const getLafiancee = async () => {
   if (articles[1].lafiancee === undefined) {
     articles[1].lafiancee = [];
   }
+  
+  const sizeList = document.querySelectorAll(".input_check.size.prodSize");
+
   if (
     site !== undefined &&
     imgToReturn !== undefined &&
     nom !== undefined &&
-    prix !== undefined
+    prix !== undefined &&
+    sizeList !== undefined
   ) {
+    let sizes = []
+    for(let i = 0; i<sizeList.length; i++) {
+      if (sizeList[i].className === "input_check size prodSize") {
+        sizes.push(sizeList[i].getAttribute("data-nom"));
+      }
+    }
+    console.log("hello", sizes);
     const article = {
       site: site,
       img: imgToReturn.src,
       name: nom,
       prix: parseFloat(prix.value),
+      quantity: 1,
+      sizes: sizes,
     };
-    console.log("bonjour", articles);
+    console.log("bonjour", article);
 
     if (
       !articles[1].lafiancee.some((element) => element.site === article.site)
@@ -85,7 +98,7 @@ const getLafiancee = async () => {
 
 const getIkea = async () => {
     document.getElementById("value-proposition-message").innerHTML =
-      '<div style="color: white; font-size: 15px; background-color: #ff7300; width:100%; height: 34px; display:flex; flex-direction: row; align-items: center; justify-content: center;"><img style="max-height: 28px; max-width: 28px" src="https://i.ibb.co/z6H7mKc/logo-icon-blanc.png" alt="logo-icon-blanc"> <b>&nbsp;Compatible: &nbsp;</b> Ajoutez vos articles directement à votre panier Cesta!</div>' +
+      '<div style="color: white; font-size: 15px; background-color: #ff7300; width:100%; height: 34px; display:flex; flex-direction: row; align-items: center; justify-content: center;"><img style="max-height: 24px; max-width: 24px" src="https://i.ibb.co/z6H7mKc/logo-icon-blanc.png" alt="logo-icon-blanc"> <b>&nbsp;Compatible: &nbsp;</b> Ajoutez vos articles directement à votre panier Cesta!</div>' +
       document.getElementById("value-proposition-message").innerHTML;
   let articles = await loadArticles();
 
@@ -134,6 +147,7 @@ const getIkea = async () => {
       img: imgToReturn.src,
       name: nom,
       prix: prix,
+      quantity: 1,
     };
     console.log(article);
     console.log("bonjour", articles);
@@ -152,7 +166,7 @@ const getIkea = async () => {
 
 const getLaGrandeRecre = async () => {
   document.getElementById("header").innerHTML =
-    '<div style="color: white; font-size: 15px; background-color: #ff7300; width:100%; height: 34px; display:flex; flex-direction: row; align-items: center; justify-content: center;"><img style="max-height: 28px; max-width: 28px" src="https://i.ibb.co/z6H7mKc/logo-icon-blanc.png" alt="logo-icon-blanc"> <b>&nbsp;Compatible: &nbsp;</b> Ajoutez vos articles directement à votre panier Cesta!</div>' +
+    '<div style="color: white; font-size: 15px; background-color: #ff7300; width:100%; height: 34px; display:flex; flex-direction: row; align-items: center; justify-content: center;"><img style="max-height: 24px; max-width: 284px" src="https://i.ibb.co/z6H7mKc/logo-icon-blanc.png" alt="logo-icon-blanc"> <b>&nbsp;Compatible: &nbsp;</b> Ajoutez vos articles directement à votre panier Cesta!</div>' +
     document.getElementById("header").innerHTML;
   let articles = await loadArticles();
 
@@ -198,6 +212,7 @@ const getLaGrandeRecre = async () => {
       img: imgToReturn.src,
       name: nom,
       prix: prix,
+      quantity: 1,
     };
     console.log(article);
     console.log("bonjour", articles);
@@ -220,7 +235,7 @@ const getLaGrandeRecre = async () => {
 
 const getTennisPro = async () => {
   document.getElementById("ezzoom-gdpr_cookiealert").innerHTML =
-    '<div style="color: white; font-size: 15px; background-color: #ff7300; width:100%; height: 34px; display:flex; flex-direction: row; align-items: center; justify-content: center;"><img style="max-height: 28px; max-width: 28px" src="https://i.ibb.co/z6H7mKc/logo-icon-blanc.png" alt="logo-icon-blanc"> <b>&nbsp;Compatible: &nbsp;</b> Ajoutez vos articles directement à votre panier Cesta!</div>' +
+    '<div style="color: white; font-size: 15px; background-color: #ff7300; width:100%; height: 34px; display:flex; flex-direction: row; align-items: center; justify-content: center;"><img style="max-height: 24px; max-width: 24px" src="https://i.ibb.co/z6H7mKc/logo-icon-blanc.png" alt="logo-icon-blanc"> <b>&nbsp;Compatible: &nbsp;</b> Ajoutez vos articles directement à votre panier Cesta!</div>' +
     document.getElementById("ezzoom-gdpr_cookiealert").innerHTML;
   let articles = await loadArticles();
 
@@ -261,6 +276,7 @@ const getTennisPro = async () => {
       img: imgToReturn.src,
       name: nom,
       prix: prix,
+      quantity: 1,
     };
     console.log(article);
     console.log("bonjour", articles);

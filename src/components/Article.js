@@ -1,12 +1,43 @@
-import React, { useState, useEffect } from 'react'
-import './Article.css'
-import asosArticle from '../icons/asosarticle.jpeg'
+import React, { useState, useEffect } from "react";
+import "./Article.css";
+import asosArticle from "../icons/asosarticle.jpeg";
 import { ButtonGroup, Button, IconButton } from "@mui/material";
-import { fontFamily, height } from '@mui/system'
+import { fontFamily, height } from "@mui/system";
 
-const Article = ({ marchandId, articleId, article, handleRemoveArticle }) => {
-  const [quantity, setQuantity] = useState(1)
-  const [size, setSize] = useState('M')
+const Article = ({
+  marchandId,
+  articleId,
+  article,
+  handleRemoveArticle,
+  handleMinusArticle,
+  handlePlusArticle,
+  handleSetSize,
+}) => {
+  const [quantity, setQuantity] = useState(article.quantity);
+  const [size, setSize] = useState("");
+  const handleAddQuantity = () => {
+    if (quantity < 5) {
+      setQuantity(quantity + 1);
+      handlePlusArticle(marchandId, articleId);
+    } else {
+      alert("5 articles max");
+    }
+  };
+  const handleMinusQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+      handleMinusArticle(marchandId, articleId);
+    }
+  };
+  useEffect(() => {
+    if (article.size !== undefined) {
+      setSize(article.size);
+    }
+  }, []);
+  const handleChangeSize = (e) => {
+    setSize(e.target.value);
+    handleSetSize(marchandId, articleId, e.target.value);
+  };
   return (
     <li className="article">
       <Button
@@ -50,6 +81,7 @@ const Article = ({ marchandId, articleId, article, handleRemoveArticle }) => {
             <Button
               variant="contained"
               disableElevation
+              onClick={handleMinusQuantity}
               sx={{
                 padding: "0px",
                 minWidth: "0px",
@@ -67,6 +99,7 @@ const Article = ({ marchandId, articleId, article, handleRemoveArticle }) => {
             <Button
               variant="contained"
               disableElevation
+              onClick={handleAddQuantity}
               sx={{
                 padding: "0px",
                 minWidth: "0px",
@@ -81,14 +114,27 @@ const Article = ({ marchandId, articleId, article, handleRemoveArticle }) => {
               +
             </Button>
           </div>
-          <div className="article-size">
-            Size
-            <span>{size}</span>
-          </div>
+          {article.sizes !== undefined && (
+            <div className="article-size">
+              Size:
+              <select
+                name="size"
+                className="size-select"
+                value={article.size}
+                onChange={handleChangeSize}
+              >
+                {article.sizes.map((el) => {
+                  return <option value={el}>{el}</option>;
+                })}
+              </select>
+            </div>
+          )}
         </div>
       </div>
-      <div className="article-price">{article.prix.toFixed(2)}€</div>
+      <div className="article-price">
+        {(article.prix * article.quantity).toFixed(2)}€
+      </div>
     </li>
   );
-}
-export default Article
+};
+export default Article;

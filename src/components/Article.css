@@ -62,8 +62,8 @@ li div {
   border: none;
   border-width: 0;
   box-shadow: none;
-  text-align: center;
   outline: none;
+  text-align: center;
   font-size: 11px;
   font-family: 'Montserrat-Medium';
   font-weight: bold;
@@ -75,7 +75,6 @@ li div {
   position: relative;
   width: 50%;
   height: 100%;
-  left: 10px;
   font-family: 'Montserrat-Regular';
   font-size: 11px;
   padding-top: 8px;
@@ -85,6 +84,15 @@ li div {
    font-size: 11px;
    font-family: 'Montserrat-Medium';
    font-weight: bold;
+ }
+ .size-select{
+   width: 65px;
+   margin-left: 5px;
+    border: none;
+    border-width: 0;
+    box-shadow: none;
+    background-color: white;
+    outline: none;
  }
 .article-price {
   display: flex;

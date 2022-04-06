@@ -15,6 +15,7 @@ const App = () => {
   useEffect(() => {
     if(user) {
       console.log(user)
+      
       navigate("/private/main")
     }
     else {

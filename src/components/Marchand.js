@@ -2,7 +2,15 @@ import React, { useState, useEffect } from "react";
 import "./Marchand.css";
 import Article from "./Article";
 
-const Marchand = ({ id, marchArticles, click, handleRemoveArticle }) => {
+const Marchand = ({
+  id,
+  marchArticles,
+  click,
+  handleRemoveArticle,
+  handleMinusArticle,
+  handlePlusArticle,
+  handleSetSize,
+}) => {
   const [subTotal, setSubTotal] = useState(0);
   const [marchandName, setMarchandName] = useState("");
   useEffect(() => {
@@ -20,7 +28,7 @@ const Marchand = ({ id, marchArticles, click, handleRemoveArticle }) => {
   useEffect(() => {
     let total = 0;
     marchArticles.forEach((el) => {
-      total += el.prix;
+      total += el.prix * el.quantity;
     });
     setSubTotal(total);
   }, [click]);
@@ -41,6 +49,9 @@ const Marchand = ({ id, marchArticles, click, handleRemoveArticle }) => {
               articleId={i}
               article={element}
               handleRemoveArticle={handleRemoveArticle}
+              handleMinusArticle={handleMinusArticle}
+              handlePlusArticle={handlePlusArticle}
+              handleSetSize={handleSetSize}
             />
           );
         })}

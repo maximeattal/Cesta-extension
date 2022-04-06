@@ -17,7 +17,7 @@ const Footer = ({
     let totalAmount = 0;
     Object.keys(listMarchands).forEach((key) => {
       listMarchands[key].forEach((element) => {
-        totalAmount += element.prix;
+        totalAmount += (element.prix * element.quantity);
       });
     });
     setTotalAmount(totalAmount);

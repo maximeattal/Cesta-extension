@@ -12,7 +12,7 @@ const Main = () => {
   const [exist, setExist] = useState(false);
   const [listMarchands, setListMarchands] = useState({});
   const [allList, setAllList] = useState([]);
-  const [totalAmount, setTotalAmount] = useState(0)
+  const [totalAmount, setTotalAmount] = useState(0);
   const [click, setClick] = useState(0);
   const [toggleLoadingPage, setToggleLoadingPage] = useState(true);
 
@@ -20,6 +20,7 @@ const Main = () => {
     return new Promise((resolve) => {
       chrome.storage.local.get(["fromContent"], (res) => {
         resolve(res.fromContent);
+        console.log();
       });
     });
   };
@@ -43,8 +44,8 @@ const Main = () => {
     handleLoading();
   }, []);
   const clickAction = () => {
-    setClick(click + 1)
-  }
+    setClick(click + 1);
+  };
 
   useEffect(() => {
     siteSupported();
@@ -67,20 +68,50 @@ const Main = () => {
       setToggleLoadingPage(false);
     }, 300);
   };
-
-  const handleRemoveArticle = (marchandId, articleId) => {
+  const handleMinusArticle = (marchandId, articleId) => {
     let temp = listMarchands;
-    temp[marchandId].splice(articleId, 1)
-    if (temp[marchandId].length === 0) {
-      delete temp[marchandId]
-    }
+    temp[marchandId][articleId].quantity =
+      temp[marchandId][articleId].quantity - 1;
+
     setListMarchands(temp);
     setClick(click + 1);
     chrome.storage.local.set({
       panier: temp,
     });
     console.log("tttt", temp);
-  }
+  };
+  const handlePlusArticle = (marchandId, articleId) => {
+    let temp = listMarchands;
+    temp[marchandId][articleId].quantity =
+      temp[marchandId][articleId].quantity + 1;
+
+    setListMarchands(temp);
+    setClick(click + 1);
+    chrome.storage.local.set({
+      panier: temp,
+    });
+  };
+  const handleSetSize = (marchandId, articleId, newSize) => {
+    let temp = listMarchands;
+    temp[marchandId][articleId].size = newSize
+    setListMarchands(temp);
+    setClick(click + 1);
+    chrome.storage.local.set({
+      panier: temp,
+    });
+  };
+  const handleRemoveArticle = (marchandId, articleId) => {
+    let temp = listMarchands;
+    temp[marchandId].splice(articleId, 1);
+    if (temp[marchandId].length === 0) {
+      delete temp[marchandId];
+    }
+    setListMarchands(temp);
+    setClick(click + 1);
+    chrome.storage.local.set({
+      panier: temp,
+    });
+  };
   const addArticle = (website) => {
     if (listMarchands[website] === undefined) {
       listMarchands[website] = [];
@@ -99,20 +130,16 @@ const Main = () => {
     } else {
       alert("Article déjà ajouté");
     }
-  }
+  };
   const handleAddArticle = () => {
-
     if (url.includes("lafiancee")) {
-      addArticle("lafiancee")
-    } 
-    else if (url.includes("ikea")) {
-      addArticle("ikea")
-    } 
-    else if (url.includes("lagranderecre")) {
-      addArticle("lagranderecre")
-    } 
-    else if (url.includes("tennispro")) {
-      addArticle("tennispro")
+      addArticle("lafiancee");
+    } else if (url.includes("ikea")) {
+      addArticle("ikea");
+    } else if (url.includes("lagranderecre")) {
+      addArticle("lagranderecre");
+    } else if (url.includes("tennispro")) {
+      addArticle("tennispro");
     }
   };
   return (
@@ -124,6 +151,9 @@ const Main = () => {
         <Panier
           listMarchands={listMarchands}
           handleRemoveArticle={handleRemoveArticle}
+          handleMinusArticle={handleMinusArticle}
+          handlePlusArticle={handlePlusArticle}
+          handleSetSize={handleSetSize}
           click={click}
         />
       )}

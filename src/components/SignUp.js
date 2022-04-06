@@ -13,7 +13,8 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { Navigation } from "@mui/icons-material";
 import { auth, db } from "../firebase-config";
-import { doc, setDoc, Timestamp } from "firebase/firestore";
+import { sendEmailVerification } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 const SignUp = () => {
   const [gender, setGender] = useState("female");
@@ -27,6 +28,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [validation, setValidation] = useState("");
+  const [send, setSend] = useState(false);
   const [error, setError] = useState(false);
   const navigate = useNavigate();
 
@@ -93,7 +95,7 @@ const SignUp = () => {
       setError(true);
       return;
     }
-    
+
     try {
       const cred = await signUp(email, password);
       const userInfo = {
@@ -105,10 +107,12 @@ const SignUp = () => {
         city: city,
         zipcode: zipcode,
         country: country,
-      }
-      await setDoc(doc(db, "users", cred.user.uid), userInfo)
-      navigate("/");
-      clearFields()
+      };
+      await setDoc(doc(db, "users", cred.user.uid), userInfo);
+      await sendEmailVerification(auth.currentUser);
+
+      setSend(true);
+      clearFields();
     } catch (error) {
       if (error.code === "auth/invalid-email") {
         setValidation("Invalid Email");
@@ -140,6 +144,9 @@ const SignUp = () => {
             Sign in here
           </a>
         </span>
+        {
+          send && 
+          <span className="verification-email">A verification email has been sent to you !</span>}
         <form className="signup-form" onSubmit={handleForm}>
           <FormControl
             sx={{

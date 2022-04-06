@@ -21,7 +21,6 @@
     font-size: 13px;
     font-family: "Montserrat-Regular";
     margin: 7px 0px;
-    margin-bottom: 15px; 
     color: #8f8f8f;
 }
 
@@ -35,6 +34,12 @@
 }
 .signup-form{
 
+}
+.verification-email {
+        margin: 1px 0;
+        font-family: "Montserrat-Medium";
+        font-size: 13px;
+        color: green;
 }
 
 

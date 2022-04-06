@@ -31,9 +31,15 @@ const Login = () => {
     e.preventDefault()
     try {
       const cred = await signIn(email, password);
-      setUser(cred.user)
       setValidation("");
-      navigate("/private/main");
+      if(cred.user.emailVerified) {
+        setUser(cred.user)
+        navigate("/private/main");
+      }
+      else {
+        setValidation("Please verify your email")
+        setError(true)
+      }
     } catch (error) {
       setValidation("Wopsy, email and/or password incorrect")
       setError(true)

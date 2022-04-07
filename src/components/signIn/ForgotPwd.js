@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./Login.css";
 import "./ForgotPwd.css";
-import logo from "../icons/icon128.png";
+import logo from "../../icons/icon128.png";
 import TextField from "@mui/material/TextField";
 import { Button, IconButton } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Divider from "@mui/material/Divider";
 import { useNavigate } from "react-router-dom";
-import Context from "../Context";
+import Context from "../../Context";
 
 const ForgotPwd = () => {
   const [email, setEmail] = useState("");
@@ -34,7 +34,6 @@ const ForgotPwd = () => {
         setError(true);
         setValidation("User not found")
       }
-      console.log(err);
     }
   };
 

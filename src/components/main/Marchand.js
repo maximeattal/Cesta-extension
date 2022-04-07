@@ -14,7 +14,6 @@ const Marchand = ({
   const [subTotal, setSubTotal] = useState(0);
   const [marchandName, setMarchandName] = useState("");
   useEffect(() => {
-    console.log(id);
     if (id === "lafiancee") {
       setMarchandName("La Fiancéee");
     } else if (id === "ikea") {

@@ -5,14 +5,14 @@ import { Button, IconButton } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import Context from "../Context";
+import Context from "../../Context";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { Navigation } from "@mui/icons-material";
-import { auth, db } from "../firebase-config";
+import { auth, db } from "../../firebase-config";
 import { sendEmailVerification } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 

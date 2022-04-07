@@ -1,0 +1,21 @@
+.payment-container {
+  margin: 20px;
+  max-height: 420px;
+  overflow: auto;
+}
+
+.credit-card-container{
+  margin: 15px 10px;
+
+}
+
+.delivery-container{
+    margin: 15px 0;
+}
+
+.address-container{
+    margin: 10px 0;
+    padding-left: 25px;
+    display: inline-block;
+    max-width: 200px;
+}

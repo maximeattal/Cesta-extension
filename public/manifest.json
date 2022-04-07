@@ -2,8 +2,8 @@
   "name": "Cesta",
   "description": "Le panier universel qui vous permet de commander sur tous les sites en 1 seule fois!",
   "version": "1.0",
-  "manifest_version": 2,
-  "browser_action": {
+  "manifest_version": 3,
+  "action": {
     "default_popup": "index.html",
     "default_title": "Cesta"
   },

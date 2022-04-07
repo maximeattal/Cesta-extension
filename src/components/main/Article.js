@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Article.css";
-import asosArticle from "../icons/asosarticle.jpeg";
+import asosArticle from "../../icons/asosarticle.jpeg";
 import { ButtonGroup, Button, IconButton } from "@mui/material";
 import { fontFamily, height } from "@mui/system";
 

@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import Context from '../Context'
+import Context from '../../Context'
 import { Outlet, useLocation, Navigate } from 'react-router-dom'
 
 export default function Private() {

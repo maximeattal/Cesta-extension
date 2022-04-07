@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./Login.css";
-import logo from "../icons/icon128.png";
+import logo from "../../icons/icon128.png";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import { Link, useNavigate } from "react-router-dom";
-import Context from "../Context";
+import Context from "../../Context";
 import { QueuePlayNext } from "@mui/icons-material";
 
-const Login = () => {
+const Login = ({handleSignIn}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validation, setValidation] = useState("");
@@ -34,6 +34,7 @@ const Login = () => {
       setValidation("");
       if(cred.user.emailVerified) {
         setUser(cred.user)
+        handleSignIn()
         navigate("/private/main");
       }
       else {

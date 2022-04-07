@@ -29,7 +29,6 @@ export const Provider = ({ children }) => {
         if (user.emailVerified) {
           const info = await getDoc(doc(db, "users", user.uid));
           setUser(user);
-          console.log("hello", info.data());
           setUserInfos(info.data());
         }
       }

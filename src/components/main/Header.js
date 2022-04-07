@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import Context from "../Context";
+import Context from "../../Context";
 import "./Header.css";
 import IconButton from "@mui/material/IconButton";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -12,7 +12,7 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../firebase-config";
+import { auth } from "../../firebase-config";
 
 
 const Header = () => {
@@ -35,7 +35,6 @@ const Header = () => {
       alert("For some reasons we can't deconnect, please check your internet connexion and retry.");
     }
   };
-  console.log(userInfos);
   return (
     <header className="Header">
       <nav className="top-bar">

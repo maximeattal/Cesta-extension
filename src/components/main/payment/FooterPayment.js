@@ -1,23 +1,17 @@
 import React, { useState, useEffect } from "react";
-import "./Footer.css";
+import "../Footer.css";
+import "./FooterPayment.css";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
-const Footer = ({
-  toggleExist,
-  handleAddArticle,
-  listMarchands,
-  click,
-  clickAction,
-}) => {
+const FooterPayment = ({ listMarchands, click, clickAction, handlePay }) => {
   const [totalAmount, setTotalAmount] = useState(0);
-  const navigate = useNavigate();
 
   useEffect(() => {
     let totalAmount = 0;
     Object.keys(listMarchands).forEach((key) => {
       listMarchands[key].forEach((element) => {
-        totalAmount += (element.prix * element.quantity);
+        totalAmount += element.prix * element.quantity;
       });
     });
     setTotalAmount(totalAmount);
@@ -28,8 +22,8 @@ const Footer = ({
     }, 50);
   };
   useEffect(() => {
-    handleLoading()
-  }, [])
+    handleLoading();
+  }, []);
   return (
     <footer className="Footer">
       <div class="bottom-bar">
@@ -40,20 +34,14 @@ const Footer = ({
 
         <Button
           variant="contained"
-          onClick={handleAddArticle}
-          disabled={!toggleExist}
-        >
-          <AddIcon />
-        </Button>
-        <Button
-          variant="contained"
           disableElevation
+          onClick={() => handlePay()}
           sx={{
             backgroundColor: "#ff7300",
             borderRadius: "5px",
             fontFamily: "Montserrat-Medium",
             fontSize: "16px",
-            width: "150px",
+            width: "200px",
             height: "41px",
             textTransform: "none",
             "&:hover": {
@@ -61,10 +49,10 @@ const Footer = ({
             },
           }}
         >
-          Check out
+          Pay
         </Button>
       </div>
     </footer>
   );
 };
-export default Footer;
+export default FooterPayment;

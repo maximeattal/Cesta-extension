@@ -5,22 +5,29 @@ import Panier from "./Panier";
 import PanierLoading from "./PanierLoading";
 import Footer from "./Footer";
 import Header from "./Header";
+import Shipping from "./shipping/Shipping";
+import FooterShipping from "./shipping/FooterShipping";
+import HeaderShipping from "./shipping/HeaderShipping";
+import Payment from "./payment/Payment";
+import HeaderPayment from "./payment/HeaderPayment";
+import FooterPayment from "./payment/FooterPayment";
 import "./Main.css";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Main = () => {
   const [url, setUrl] = useState("");
   const [exist, setExist] = useState(false);
   const [listMarchands, setListMarchands] = useState({});
   const [allList, setAllList] = useState([]);
+  const [page, setPage] = useState(1);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [loadingPayment, setLaodingPayment] = useState(false);
   const [click, setClick] = useState(0);
   const [toggleLoadingPage, setToggleLoadingPage] = useState(true);
-
   const loadArticles = () => {
     return new Promise((resolve) => {
       chrome.storage.local.get(["fromContent"], (res) => {
         resolve(res.fromContent);
-        console.log();
       });
     });
   };
@@ -51,6 +58,14 @@ const Main = () => {
     siteSupported();
   }, [allList]);
 
+  const goPage = (newPage) => {
+    if (Object.keys(listMarchands).length !== 0) {
+      setPage(newPage);
+    }
+    else {
+      alert("Votre panier est vide")
+    }
+  };
   const siteSupported = () => {
     if (allList !== undefined && allList.length !== 0) {
       let toggleExist = false;
@@ -78,7 +93,6 @@ const Main = () => {
     chrome.storage.local.set({
       panier: temp,
     });
-    console.log("tttt", temp);
   };
   const handlePlusArticle = (marchandId, articleId) => {
     let temp = listMarchands;
@@ -93,7 +107,7 @@ const Main = () => {
   };
   const handleSetSize = (marchandId, articleId, newSize) => {
     let temp = listMarchands;
-    temp[marchandId][articleId].size = newSize
+    temp[marchandId][articleId].size = newSize;
     setListMarchands(temp);
     setClick(click + 1);
     chrome.storage.local.set({
@@ -128,7 +142,7 @@ const Main = () => {
         panier: temp,
       });
     } else {
-      alert("Article déjà ajouté");
+      alert("Article already added");
     }
   };
   const handleAddArticle = () => {
@@ -142,29 +156,82 @@ const Main = () => {
       addArticle("tennispro");
     }
   };
-  return (
-    <div className="main-panier">
-      <Header />
-      {toggleLoadingPage ? (
-        <PanierLoading />
-      ) : (
-        <Panier
+
+  const handlePay = () => {
+    setLaodingPayment(true);
+    setTimeout(() => {
+      setLaodingPayment(false);
+      clearList();
+      goPage(1);
+    }, 2000);
+  };
+
+  const clearList = () => {
+    setListMarchands({});
+    setClick(click + 1);
+    chrome.storage.local.set({
+      panier: {},
+    });
+  };
+  if (page === 1) {
+    return (
+      <div className="main-panier">
+        <Header />
+        {toggleLoadingPage ? (
+          <PanierLoading />
+        ) : (
+          <Panier
+            listMarchands={listMarchands}
+            handleRemoveArticle={handleRemoveArticle}
+            handleMinusArticle={handleMinusArticle}
+            handlePlusArticle={handlePlusArticle}
+            handleSetSize={handleSetSize}
+            click={click}
+          />
+        )}
+        <Footer
+          clickAction={clickAction}
           listMarchands={listMarchands}
-          handleRemoveArticle={handleRemoveArticle}
-          handleMinusArticle={handleMinusArticle}
-          handlePlusArticle={handlePlusArticle}
-          handleSetSize={handleSetSize}
+          toggleExist={exist}
+          handleAddArticle={handleAddArticle}
           click={click}
+          goPage={goPage}
         />
-      )}
-      <Footer
-        clickAction={clickAction}
-        listMarchands={listMarchands}
-        toggleExist={exist}
-        handleAddArticle={handleAddArticle}
-        click={click}
-      />
-    </div>
-  );
+      </div>
+    );
+  }
+  if (page === 2) {
+    return (
+      <div className="main-panier">
+        <HeaderShipping goPage={goPage} />
+        <Shipping listMarchands={listMarchands} />
+        <FooterShipping
+          clickAction={clickAction}
+          listMarchands={listMarchands}
+          click={click}
+          goPage={goPage}
+        />
+      </div>
+    );
+  }
+  if (page === 3) {
+    return (
+      <div className="main-panier">
+        <HeaderPayment goPage={goPage} />
+        {loadingPayment ? (
+          <PanierLoading />
+        ) : (
+          <Payment listMarchands={listMarchands} />
+        )}
+
+        <FooterPayment
+          clickAction={clickAction}
+          listMarchands={listMarchands}
+          click={click}
+          handlePay={handlePay}
+        />
+      </div>
+    );
+  }
 };
 export default Main;

@@ -1,7 +1,5 @@
 /* global chrome */
 
-console.log("hello from the content script");
-
 function padTo2Digits(num) {
   return num.toString().padStart(2, "0");
 }
@@ -27,7 +25,6 @@ const getMeta = (attribute, metaName) => {
 const loadArticles = () => {
   return new Promise((resolve) => {
     chrome.storage.local.get(["fromContent"], (res) => {
-      console.log("heloo", res.fromContent);
       resolve(res.fromContent);
     });
   });
@@ -71,7 +68,6 @@ const getLafiancee = async () => {
         sizes.push(sizeList[i].getAttribute("data-nom"));
       }
     }
-    console.log("hello", sizes);
     const article = {
       site: site,
       img: imgToReturn.src,
@@ -80,12 +76,10 @@ const getLafiancee = async () => {
       quantity: 1,
       sizes: sizes,
     };
-    console.log("bonjour", article);
 
     if (
       !articles[1].lafiancee.some((element) => element.site === article.site)
     ) {
-      console.log("joujo", articles);
       articles[1].lafiancee.push(article);
       chrome.storage.local.set({
         fromContent: articles,
@@ -108,7 +102,6 @@ const getIkea = async () => {
     chrome.storage.local.clear();
     articles = [formatDate(new Date()), {}];
   }
-  console.log("ikea");
   const site = window.location.href;
 
   const imgToReturn = document.getElementsByClassName(
@@ -122,7 +115,6 @@ const getIkea = async () => {
     " | " +
     document.getElementsByClassName("pip-header-section__description-text")[0]
       .textContent;
-  console.log(nom);
 
   const prix = parseFloat(
     document
@@ -131,7 +123,6 @@ const getIkea = async () => {
       )[0]
       .getAttribute("data-product-price")
   );
-  console.log("hel", typeof prix);
 
   if (articles[1].ikea === undefined) {
     articles[1].ikea = [];
@@ -149,11 +140,8 @@ const getIkea = async () => {
       prix: prix,
       quantity: 1,
     };
-    console.log(article);
-    console.log("bonjour", articles);
 
     if (!articles[1].ikea.some((element) => element.site === article.site)) {
-      console.log("joujo", articles);
       articles[1].ikea.push(article);
       chrome.storage.local.set({
         fromContent: articles,
@@ -176,18 +164,13 @@ const getLaGrandeRecre = async () => {
     chrome.storage.local.clear();
     articles = [formatDate(new Date()), {}];
   }
-  console.log("la grande récré");
   const site = window.location.href;
 
   const imgToReturn = document.getElementsByClassName(
     "media-visuals-main-img"
   )[0];
 
-  const nom = getMeta("property", "og:title").substring(
-    1,
-    getMeta("property", "og:title").length
-  );
-  console.log(nom);
+  const nom = getMeta("property", "og:title")
 
   const prix = parseFloat(
     document
@@ -196,7 +179,6 @@ const getLaGrandeRecre = async () => {
       .replace("€", "")
       .replace(",", ".")
   );
-  console.log(prix);
 
   if (articles[1].lagranderecre === undefined) {
     articles[1].lagranderecre = [];
@@ -214,15 +196,12 @@ const getLaGrandeRecre = async () => {
       prix: prix,
       quantity: 1,
     };
-    console.log(article);
-    console.log("bonjour", articles);
 
     if (
       !articles[1].lagranderecre.some(
         (element) => element.site === article.site
       )
     ) {
-      console.log("joujo", articles);
       articles[1].lagranderecre.push(article);
       chrome.storage.local.set({
         fromContent: articles,
@@ -245,13 +224,9 @@ const getTennisPro = async () => {
     chrome.storage.local.clear();
     articles = [formatDate(new Date()), {}];
   }
-  console.log("TennisPro");
   const site = window.location.href;
-
   const imgToReturn = document.getElementsByClassName("bbox")[0];
-
   const nom = document.getElementsByClassName("infos__title")[0].textContent;
-  console.log(nom);
 
   const prix = parseFloat(
     document
@@ -260,7 +235,6 @@ const getTennisPro = async () => {
       .replace("€", "")
       .replace(",", ".")
   );
-  console.log(prix);
 
   if (articles[1].tennispro === undefined) {
     articles[1].tennispro = [];
@@ -278,13 +252,10 @@ const getTennisPro = async () => {
       prix: prix,
       quantity: 1,
     };
-    console.log(article);
-    console.log("bonjour", articles);
 
     if (
       !articles[1].tennispro.some((element) => element.site === article.site)
     ) {
-      console.log("joujo", articles);
       articles[1].tennispro.push(article);
       chrome.storage.local.set({
         fromContent: articles,
